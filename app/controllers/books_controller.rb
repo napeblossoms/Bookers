@@ -6,9 +6,12 @@ class BooksController < ApplicationController
   end
 
   def create #保存機能
-    book = Book.new(book_params)
-    book.save
-    redirect_to "/books/#{book.id}"
+   @book = Book.new(book_params)
+    if @book.save
+      redirect_to book_path(@book)
+    else
+      render :new
+    end
   end
 
   def show
