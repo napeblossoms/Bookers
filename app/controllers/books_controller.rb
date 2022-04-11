@@ -11,6 +11,7 @@ class BooksController < ApplicationController
      # flash[:notice] = 'メッセ―ジが送信されました'
       #redirect_to book_path(@book.id)
     if @book.save
+      flash[:success] = 'Book was successfully created.'
       redirect_to book_path(@book)
     else
       @books = Book.all
@@ -27,6 +28,7 @@ class BooksController < ApplicationController
   end
 
   def update
+    flash[:success] = 'Book was successfully created.'
     book = Book.find(params[:id])
     if book.update(book_params)
        redirect_to "/books/#{book.id}"
