@@ -7,10 +7,14 @@ class BooksController < ApplicationController
 
   def create #保存機能
    @book = Book.new(book_params)
+    #if @book.save
+     # flash[:notice] = 'メッセ―ジが送信されました'
+      #redirect_to book_path(@book.id)
     if @book.save
       redirect_to book_path(@book)
     else
-      render :new
+      @books = Book.all
+      render :index
     end
   end
 
@@ -24,8 +28,12 @@ class BooksController < ApplicationController
 
   def update
     book = Book.find(params[:id])
-    book.update(book_params)
-    redirect_to "/books/#{book.id}"
+    if book.update(book_params)
+       redirect_to "/books/#{book.id}"
+    else
+     @book = book
+     render :edit
+    end
   end
 
   def destroy
